@@ -1,0 +1,5 @@
+fractol
+.DS_Store
+*.swp
+*.o
+*.a
