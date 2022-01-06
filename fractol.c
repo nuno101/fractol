@@ -6,14 +6,14 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:12:55 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/06 18:12:46 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/06 18:51:09 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
 
-void	my_mlx_pixel_put(Fractal *fr, int x, int y, int color)
+void	my_mlx_pixel_put(Window *fr, int x, int y, int color)
 {
 	char	*dst;
 
@@ -45,9 +45,7 @@ int mouse_event(int button, int x, int y, void *param)
 
 int	main(int argc, char **argv)
 {
-    void    *display; // connection
-    void    *window;
-	Fractal fr;
+	Window fr;
 
 	if (argc < 2)
 	{
@@ -63,13 +61,11 @@ int	main(int argc, char **argv)
 	fr.size_x = 640;
 	fr.size_y = 480;
 
-	display= mlx_init();
-	window = mlx_new_window(display, fr.size_x, fr.size_y, "Fract-ol");
-	// add color to a couple pixels
-	mlx_pixel_put(display, window, 5, 5, 0x00FF0000);
-	mlx_pixel_put(display, window, 5, 15, 0x00FFFFFF);
+	fr.display= mlx_init();
+	fr.window = mlx_new_window(fr.display, fr.size_x, fr.size_y, "Fract-ol");
+	//mlx_pixel_put(fr.display, fr.window, 5, 5, 0x00FF0000);
 	// create new image in memory
-	fr.image = mlx_new_image(display, fr.size_x, fr.size_y);
+	fr.image = mlx_new_image(fr.display, fr.size_x, fr.size_y);
 	fr.addr = mlx_get_data_addr(fr.image, &(fr.bits_per_pixel), &(fr.line_length), &(fr.endian));
 
 	printf("bpp: %i\n", fr.bits_per_pixel);
@@ -79,10 +75,10 @@ int	main(int argc, char **argv)
 	my_mlx_pixel_put(&fr, 5, 5, 0x00FF0000);
 	my_mlx_pixel_put(&fr, 5, 15, 0x00FFFFFF);
 	// replace image shown
-	mlx_put_image_to_window(display, window, fr.image, 0, 0);
-	mlx_key_hook(window, handle_key, &fr);
-	mlx_mouse_hook(window, mouse_event, 0);
-	mlx_loop(display);
+	mlx_put_image_to_window(fr.display, fr.window, fr.image, 0, 0);
+	mlx_key_hook(fr.window, handle_key, &fr);
+	mlx_mouse_hook(fr.window, mouse_event, 0);
+	mlx_loop(fr.display);
 
 	return (0);
 }
