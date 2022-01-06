@@ -6,16 +6,17 @@
 #    By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/27 14:36:13 by nlouro            #+#    #+#              #
-#    Updated: 2021/12/27 16:23:30 by nlouro           ###   ########.fr        #
+#    Updated: 2022/01/06 17:50:19 by nlouro           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FRACTOL = fractol
 
 C_FLAGS = -Wall -Wextra -Werror
-MINILIBX_DIR = minilibx_opengl_20191021
+#MINILIBX_DIR = minilibx_opengl_20191021
+MINILIBX_DIR = minilibx_macos
 MINILIBX = libmlx.a
-MINILIBX_FLAGS = -framework OpenGL -framework AppKit 
+MINILIBX_FLAGS =  -framework OpenGL -framework AppKit 
 
 C_FILES = fractol.c
 

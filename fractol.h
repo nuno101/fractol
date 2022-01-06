@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:16:37 by nlouro            #+#    #+#             */
-/*   Updated: 2021/12/28 17:29:13 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/06 12:51:32 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 typedef struct Fractals 
 {
-	//void	*mlx;
+	//void	*display;
 	//void	*window;
 
 	/* https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html */
@@ -32,7 +32,6 @@ typedef struct Fractals
 	char	*set;
 	int		size_x;
 	int		size_y;
-	//int		ymin
 }	Fractal;
 
 # include <stdio.h> //used for printf
