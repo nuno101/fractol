@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:12:55 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/07 13:00:38 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/07 17:23:56 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,70 @@ void	my_mlx_pixel_put(t_Window *fr, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+/*
+ * walk over the pixels
+ * convert pixel position to (x,y) and calculate z
+ */
 void	plot_mandelbrot(t_Window *fr)
+{
+	int	px;
+	int	py;
+	float	xmin;
+	float	xmax;
+	float	ymin;
+	float	ymax;
+	double	z;
+	float	zmax;
+	float	x;
+	float	y;
+	int	n;
+	int	iter; //max iterations of z calculation
+	int	color;
+	int	color2;
+
+	px = 0;
+	py = fr->size_y;
+	xmin = -1.5;
+	xmax = 	0.5;
+	ymin = -1.0;
+	ymax = 	1.0;
+	n = 0;
+	iter = 200;
+	zmax = 2.0;
+	z = 0.0;
+
+	color = 0x00FFFFFF;
+	color2 = 0x00AABBFF;
+
+	while (py >= 0)
+	{
+		y = ymax - py * (ymax - ymin) / fr->size_y;
+		while (px <= fr->size_x)
+		{
+			//printf("px: %i py: %i\n", px, py);
+			x = xmin + px * (xmax - xmin) / fr->size_x;
+			while (n <= iter && z < zmax)
+			{
+				z = z*z + sqrt(x * x + y * y); 
+				//printf("px: %i py: %i n: %i x: %f y: %f z: %f\n", px, py, n, x, y, z);
+				if (z > zmax)
+					break;
+				if (n == iter)
+					my_mlx_pixel_put(fr, px, py, color);
+				n++;
+			}
+			n = 0;
+			z = 0;
+			px++;
+		}
+		px = 0;
+		py--;
+	}
+	// plot (0,0)
+	my_mlx_pixel_put(fr, fr->size_x / 2, fr->size_y / 2, 0x00FFFFBB);
+}
+
+void	pplot_mandelbrot(t_Window *fr)
 {
 	int	x;
 	int	y;
@@ -41,6 +104,7 @@ void	plot_mandelbrot(t_Window *fr)
 		x++;
 	}
 }
+
 
 int	handle_key(int keycode, void *param)
 {
@@ -92,7 +156,7 @@ int	main(int argc, char **argv)
 	fr.set = argv[1];
 	init_window(&fr);
 	// create new image in memory
-	plot_mandelbrot(&fr);
+	pplot_mandelbrot(&fr);
 	// replace image shown
 	mlx_put_image_to_window(fr.display, fr.window, fr.image, 0, 0);
 	mlx_key_hook(fr.window, handle_key, &fr);
