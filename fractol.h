@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:16:37 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/06 18:48:08 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/07 12:02:49 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@
 # include <unistd.h>
 # include <stdlib.h> //used for exit
 # include "mlx.h"
+# include "math.h"
+# include <stdio.h> //used for printf
+# include <string.h> //used for strcmp 
 
-typedef struct Windows 
+typedef struct Windows
 {
 	void	*display;
 	void	*window;
@@ -31,9 +34,6 @@ typedef struct Windows
 	char	*set;
 	int		size_x;
 	int		size_y;
-}	Window;
-
-# include <stdio.h> //used for printf
-# include <string.h> //used for strcmp 
+}	t_Window;
 
 #endif
