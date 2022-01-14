@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:12:55 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/07 17:23:56 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/14 12:10:08 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,67 +26,77 @@ void	my_mlx_pixel_put(t_Window *fr, int x, int y, int color)
  */
 void	plot_mandelbrot(t_Window *fr)
 {
-	int	px;
-	int	py;
-	float	xmin;
-	float	xmax;
-	float	ymin;
-	float	ymax;
-	double	z;
-	float	zmax;
-	float	x;
-	float	y;
-	int	n;
-	int	iter; //max iterations of z calculation
-	int	color;
-	int	color2;
+	unsigned	int	px = 0;
+	unsigned	int	py = 0;
+	unsigned	int	n = 0;
+	unsigned	int	max_iter = 30;
+	double	rmin = -2.0;
+	double	rmax = 1.0;
+	double	imin = -1.2;
+	double	imax = 1.2;
+	double	re_factor = (rmax - rmin) / (fr->size_x - 1);
+	double	im_factor = (imax - imin) / (fr->size_y - 1);
+	unsigned	int is_inside;
+	double	c_re;
+	double	z_re;
+	double	z_re2;
+	double	c_im;
+	double	z_im;
+	double	z_im2;
+	int	color = 0x00FFFFFF;
+	int	red = 0x00FF0000;
 
-	px = 0;
-	py = fr->size_y;
-	xmin = -1.5;
-	xmax = 	0.5;
-	ymin = -1.0;
-	ymax = 	1.0;
-	n = 0;
-	iter = 200;
-	zmax = 2.0;
-	z = 0.0;
-
-	color = 0x00FFFFFF;
-	color2 = 0x00AABBFF;
-
-	while (py >= 0)
+	while (py < fr->size_y)
 	{
-		y = ymax - py * (ymax - ymin) / fr->size_y;
-		while (px <= fr->size_x)
+		c_im = imax - py * im_factor;
+		while (px < fr->size_x)
 		{
-			//printf("px: %i py: %i\n", px, py);
-			x = xmin + px * (xmax - xmin) / fr->size_x;
-			while (n <= iter && z < zmax)
+			c_re = rmin + px * re_factor;
+			z_re = c_re;
+			z_im = c_im;
+			is_inside = 1;
+			while(n < max_iter)
 			{
-				z = z*z + sqrt(x * x + y * y); 
-				//printf("px: %i py: %i n: %i x: %f y: %f z: %f\n", px, py, n, x, y, z);
-				if (z > zmax)
+				z_re2 = z_re * z_re;
+				z_im2 = z_im * z_im;
+				//printf("px: %i py: %i n: %i z_re2: %f z_im2: %f \n", px, py, n, z_re2, z_im2);
+				if ((z_re2 + z_im2) > 4)
+				{
+					is_inside = 0;
 					break;
-				if (n == iter)
-					my_mlx_pixel_put(fr, px, py, color);
+				}
+				z_im = 2 * z_re * z_im + c_im;
+				z_re = z_re2 - z_im2 + c_re;
 				n++;
 			}
+			if (is_inside == 1)
+				my_mlx_pixel_put(fr, px, py, 0x00000000);
+			else
+			{
+			if (n == 0)
+				my_mlx_pixel_put(fr, px, py, color);
+			if (n == 1)
+				my_mlx_pixel_put(fr, px, py, red);
+			if (n == 2)
+				my_mlx_pixel_put(fr, px, py, 0x000000FF);
+			if (n >= 3)
+				my_mlx_pixel_put(fr, px, py, 0x0000FFFF);
+			if (n >= 4)
+				my_mlx_pixel_put(fr, px, py, (n + 30) * 256 * 256 + 28 * 256 + 128);
+			}
 			n = 0;
-			z = 0;
 			px++;
 		}
 		px = 0;
-		py--;
+		py++;
 	}
-	// plot (0,0)
-	my_mlx_pixel_put(fr, fr->size_x / 2, fr->size_y / 2, 0x00FFFFBB);
+
 }
 
-void	pplot_mandelbrot(t_Window *fr)
+void	plot_white(t_Window *fr)
 {
-	int	x;
-	int	y;
+	unsigned int	x;
+	unsigned int	y;
 	int	color;
 
 	x = 5;
@@ -151,12 +161,12 @@ int	main(int argc, char **argv)
 	}
 	if (strcmp(argv[1], "Julia") == 0)
 		printf("Julia set");
-	else if (strcmp(argv[1], "Mandelbrot") == 0)
+	else if (strcmp(argv[1], "M") == 0 || strcmp(argv[1], "Mandelbrot") == 0)
 		printf("Mandelbrot set\n");
 	fr.set = argv[1];
 	init_window(&fr);
 	// create new image in memory
-	pplot_mandelbrot(&fr);
+	plot_mandelbrot(&fr);
 	// replace image shown
 	mlx_put_image_to_window(fr.display, fr.window, fr.image, 0, 0);
 	mlx_key_hook(fr.window, handle_key, &fr);

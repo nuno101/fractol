@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:16:37 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/07 12:02:49 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/14 11:17:44 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ typedef struct Windows
 	int		endian;
 
 	char	*set;
-	int		size_x;
-	int		size_y;
+	unsigned	int		size_x;
+	unsigned	int		size_y;
 }	t_Window;
 
 #endif
