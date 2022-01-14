@@ -6,11 +6,13 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:12:55 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/14 12:10:08 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/14 16:03:53 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+unsigned	int	color_scale(unsigned int n);
 
 void	my_mlx_pixel_put(t_Window *fr, int x, int y, int color)
 {
@@ -83,6 +85,7 @@ void	plot_mandelbrot(t_Window *fr)
 				my_mlx_pixel_put(fr, px, py, 0x0000FFFF);
 			if (n >= 4)
 				my_mlx_pixel_put(fr, px, py, (n + 30) * 256 * 256 + 28 * 256 + 128);
+				//my_mlx_pixel_put(fr, px, py, color_scale(n));
 			}
 			n = 0;
 			px++;
@@ -150,6 +153,35 @@ void	init_window(t_Window *fr)
 	printf("endian: %i\n", fr->endian);
 }
 
+unsigned	int rgb2int(unsigned int red, unsigned int green, unsigned int blue)
+{
+	return (256 * 256 * red + 256 * green + blue);
+}
+
+unsigned	int	color_scale(unsigned int n)
+{
+	static unsigned int **scale;
+
+	*scale[0] = rgb2int(66, 30, 15);
+    *scale[1] = rgb2int(25, 7, 26);
+    *scale[2] = rgb2int(9, 1, 47);
+    *scale[3] = rgb2int(4, 4, 73);
+    *scale[4] = rgb2int(0, 7, 100);
+    *scale[5] = rgb2int(12, 44, 138);
+    *scale[6] = rgb2int(24, 82, 177);
+    *scale[7] = rgb2int(57, 125, 209);
+    *scale[8] = rgb2int(134, 181, 229);
+    *scale[9] = rgb2int(211, 236, 248);
+    *scale[10] = rgb2int(241, 233, 191);
+    *scale[11] = rgb2int(248, 201, 95);
+    *scale[12] = rgb2int(255, 170, 0);
+    *scale[13] = rgb2int(204, 128, 0);
+    *scale[14] = rgb2int(153, 87, 0);
+    *scale[15] = rgb2int(106, 52, 3);
+
+	return (*scale[n]);
+}
+
 int	main(int argc, char **argv)
 {
 	t_Window	fr;
@@ -163,8 +195,11 @@ int	main(int argc, char **argv)
 		printf("Julia set");
 	else if (strcmp(argv[1], "M") == 0 || strcmp(argv[1], "Mandelbrot") == 0)
 		printf("Mandelbrot set\n");
+	//printf("cs: %i\n", color_scale(0));
+	printf("cs: %i\n", rgb2int(106, 52, 3));
 	fr.set = argv[1];
 	init_window(&fr);
+	//init_color_scale(&cs);
 	// create new image in memory
 	plot_mandelbrot(&fr);
 	// replace image shown
