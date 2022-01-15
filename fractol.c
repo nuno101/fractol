@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:12:55 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/15 12:24:33 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/15 13:12:26 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	my_mlx_pixel_put(t_Window *fr, int x, int y, int color)
 }
 
 /*
- * walk over the pixels
+ * walk over each pixel
  * convert pixel position to (x,y) and calculate z
  */
 void	plot_mandelbrot(t_Window *fr)
@@ -43,8 +43,6 @@ void	plot_mandelbrot(t_Window *fr)
 	double	c_im;
 	double	z_im;
 	double	z_im2;
-	int	color = 0x00FFFFFF;
-	int	red = 0x00FF0000;
 
 	while (py < fr->size_y)
 	{
@@ -72,19 +70,7 @@ void	plot_mandelbrot(t_Window *fr)
 			if (is_inside == 1)
 				my_mlx_pixel_put(fr, px, py, 0x00000000);
 			else
-			{
-			if (n == 0)
-				my_mlx_pixel_put(fr, px, py, color);
-			if (n == 1)
-				my_mlx_pixel_put(fr, px, py, red);
-			if (n == 2)
-				my_mlx_pixel_put(fr, px, py, 0x000000FF);
-			if (n >= 3)
-				my_mlx_pixel_put(fr, px, py, 0x0000FFFF);
-			if (n >= 4)
-				my_mlx_pixel_put(fr, px, py, (n + 30) * 256 * 256 + 28 * 256 + 128);
-				//my_mlx_pixel_put(fr, px, py, color_scale(n));
-			}
+				my_mlx_pixel_put(fr, px, py, color_scale(n));
 			n = 0;
 			px++;
 		}
@@ -121,7 +107,7 @@ int	handle_key(int keycode, void *param)
 	void	*p;
 
 	p = param;
-	//printf("key pressed %i", keycode);
+	printf("key pressed %i", keycode);
 	if (keycode == 53)
 		exit(0);
 	else
@@ -152,6 +138,11 @@ void	init_window(t_Window *fr)
 */
 }
 
+/*
+ * handles Mandelbrot and Julia fractal sets
+ * sets Julia parameter K = 0.353 + 0.288i if no user parameters supplied
+ *
+ */
 int	main(int argc, char **argv)
 {
 	t_Window	fr;
@@ -186,10 +177,6 @@ int	main(int argc, char **argv)
 	}
 
 	init_window(&fr);
-	//init_color_scale(&cs);
-	//printf("cs: %i\n", color_scale(0));
-	printf("cs: %i\n", rgb2int(106, 52, 3));
-
 	// create new image in memory
 	plot_mandelbrot(&fr);
 	// replace image shown
