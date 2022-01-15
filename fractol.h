@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:16:37 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/14 11:17:44 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/15 11:45:40 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,8 @@ typedef struct Windows
 	unsigned	int		size_x;
 	unsigned	int		size_y;
 }	t_Window;
+
+unsigned    int rgb2int(int red, int green, int blue);
+unsigned    int color_scale(unsigned int n);
 
 #endif

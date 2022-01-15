@@ -6,7 +6,7 @@
 #    By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/27 14:36:13 by nlouro            #+#    #+#              #
-#    Updated: 2022/01/07 11:29:58 by nlouro           ###   ########.fr        #
+#    Updated: 2022/01/15 11:42:16 by nlouro           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ MINILIBX_DIR = minilibx_opengl_20191021
 MINILIBX = libmlx.a
 MINILIBX_FLAGS =  -framework OpenGL -framework AppKit 
 
-C_FILES = fractol.c
+C_FILES = fractol.c	color.c
 
 O_FILES = $(C_FILES:%.c=%.o)
 
