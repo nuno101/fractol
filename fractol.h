@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:16:37 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/15 11:45:40 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/15 11:59:05 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h> //used for exit
 # include "mlx.h"
 # include "math.h"
-# include <stdio.h> //used for printf
+# include <stdio.h> //used for printf, atoi
 # include <string.h> //used for strcmp 
 
 typedef struct Windows
@@ -31,7 +31,9 @@ typedef struct Windows
 	int		line_length;
 	int		endian;
 
-	char	*set;
+	char	*fractal_set; 
+	double	k_re;
+	double	k_im;
 	unsigned	int		size_x;
 	unsigned	int		size_y;
 }	t_Window;

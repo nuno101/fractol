@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:12:55 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/15 11:43:59 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/15 12:24:33 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	plot_mandelbrot(t_Window *fr)
 				z_re2 = z_re * z_re;
 				z_im2 = z_im * z_im;
 				//printf("px: %i py: %i n: %i z_re2: %f z_im2: %f \n", px, py, n, z_re2, z_im2);
-				if ((z_re2 + z_im2) > 4)
+				if (z_re2 + z_im2 > 4)
 				{
 					is_inside = 0;
 					break;
@@ -145,9 +145,11 @@ void	init_window(t_Window *fr)
 	fr->window = mlx_new_window(fr->display, fr->size_x, fr->size_y, "Fract-ol");
 	fr->image = mlx_new_image(fr->display, fr->size_x, fr->size_y);
 	fr->addr = mlx_get_data_addr(fr->image, &(fr->bits_per_pixel), &(fr->line_length), &(fr->endian));
+/*
 	printf("bpp: %i\n", fr->bits_per_pixel);
 	printf("line_length: %i\n", fr->line_length);
 	printf("endian: %i\n", fr->endian);
+*/
 }
 
 int	main(int argc, char **argv)
@@ -159,15 +161,35 @@ int	main(int argc, char **argv)
 		printf("ERROR: wrong args. Call as:\n fractol <fractal set> <params>\n");
 		return (1);
 	}
-	if (strcmp(argv[1], "Julia") == 0)
-		printf("Julia set");
+	if (strcmp(argv[1], "Julia") == 0 || strcmp(argv[1], "J") == 0)
+	{
+		fr.fractal_set = "Julia";
+		if (argc > 1)
+			fr.k_re = atof(argv[2]);
+		else
+			fr.k_re = 0.353;
+		if (argc > 2)
+			fr.k_im = atof(argv[3]);
+		else
+			fr.k_im = 0.288;
+		printf("Julia set with K = %f + %fi\n", fr.k_re, fr.k_im);
+	}
 	else if (strcmp(argv[1], "M") == 0 || strcmp(argv[1], "Mandelbrot") == 0)
+	{
+		fr.fractal_set = "Mandelbrot";
 		printf("Mandelbrot set\n");
-	//printf("cs: %i\n", color_scale(0));
-	printf("cs: %i\n", rgb2int(106, 52, 3));
-	fr.set = argv[1];
+	}
+	else
+	{
+		printf("ERROR: fractal name unknown. Call as:\n fractol <(Julia|Mandelbrot)> (<params>)\n");
+		return (1);
+	}
+
 	init_window(&fr);
 	//init_color_scale(&cs);
+	//printf("cs: %i\n", color_scale(0));
+	printf("cs: %i\n", rgb2int(106, 52, 3));
+
 	// create new image in memory
 	plot_mandelbrot(&fr);
 	// replace image shown
