@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:12:55 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/15 16:30:09 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/15 21:27:57 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ void	my_mlx_pixel_put(t_Window *fr, int x, int y, int color)
 /*
  * walk over each pixel
  * convert pixel position to (x,y) and calculate z
+ * for Mandelbrot set k_re = k_im = 0
  */
-void	plot_mandelbrot(t_Window *fr)
+void	plot_julia(t_Window *fr)
 {
 	unsigned	int	px = 0;
 	unsigned	int	py = 0;
@@ -50,8 +51,8 @@ void	plot_mandelbrot(t_Window *fr)
 		while (px < fr->size_x)
 		{
 			c_re = rmin + px * re_factor;
-			z_re = c_re;
-			z_im = c_im;
+			z_re = c_re + fr->k_re;
+			z_im = c_im + fr->k_im;
 			is_inside = 1;
 			while(n < max_iter)
 			{
@@ -80,60 +81,38 @@ void	plot_mandelbrot(t_Window *fr)
 
 }
 
-void	plot_white(t_Window *fr)
-{
-	unsigned int	x;
-	unsigned int	y;
-	int	color;
-
-	x = 5;
-	y = 5;
-	color = 0x00FFFFFF;
-
-	while (x < fr->size_x - 5)
-	{
-		while (y < fr->size_y - 5)
-		{
-			my_mlx_pixel_put(fr, x, y, color);
-			y++;
-		}
-		y = 5;
-		x++;
-	}
-}
-
-// create new image in memory
-// replace image shown
+/*
+ * call funtion to create new image in memory
+ * replace image in window 
+ */
 void	plot_image(t_Window *fr)
 {
-	printf("plot image called\n");
-
-	if (strcmp(fr->fractal_set, "Mandelbrot") == 0)
-	{
-		plot_mandelbrot(fr);
-		mlx_put_image_to_window(fr->display, fr->window, fr->image, 0, 0);
-	}
-	else if (strcmp(fr->fractal_set, "Julia") == 0)
-	{
-		plot_white(fr);
-		mlx_put_image_to_window(fr->display, fr->window, fr->image, 0, 0);
-	}
-	else
-		printf("plot image called");
+	printf("Plot %s. k_re\n", fr->fractal_set);
+	plot_julia(fr);
+	mlx_put_image_to_window(fr->display, fr->window, fr->image, 0, 0);
 }
 
-int	handle_key(int keycode, t_Window *param)
+/*
+ * handle esc, m and j keys
+ */
+int	handle_key(int keycode, t_Window *fr)
 {
-	t_Window *p;
-
-	p = param;
 	printf("key pressed %i", keycode);
 	if (keycode == 53)
 		exit(0);
-	if (keycode == 11) //b - blank
+	else if (keycode == 46) // m key
 	{
-		//param->fractal_set = NULL;
-		plot_image(param);
+		fr->fractal_set = "Mandelbrot";
+		fr->k_re = 0;
+		fr->k_im = 0;
+		plot_image(fr);
+	}
+	else if (keycode == 38) // m key
+	{
+		fr->fractal_set = "Julia";
+		fr->k_re = 0.153;
+		fr->k_im = 0.288;
+		plot_image(fr);
 	}
 	return (0);
 }
@@ -177,24 +156,25 @@ int	main(int argc, char **argv)
 		printf("ERROR: wrong args. Call as:\n fractol <fractal set> <params>\n");
 		return (1);
 	}
-	//TODO: fix Julia default params
 	if (strcmp(argv[1], "Julia") == 0 || strcmp(argv[1], "J") == 0)
 	{
 		fr.fractal_set = "Julia";
-		if (argc > 1)
-			fr.k_re = atof(argv[2]);
-		//else
-		//	fr.k_re = 0.353;
 		if (argc > 2)
+			fr.k_re = atof(argv[2]);
+		else
+			fr.k_re = 0.153;
+		if (argc > 3)
 			fr.k_im = atof(argv[3]);
-		//else
-		//	fr.k_im = 0.288;
+		else
+			fr.k_im = 0.288;
 		printf("Julia set with K = %f + %fi\n", fr.k_re, fr.k_im);
 	}
 	else if (strcmp(argv[1], "M") == 0 || strcmp(argv[1], "Mandelbrot") == 0)
 	{
 		fr.fractal_set = "Mandelbrot";
 		printf("Mandelbrot set\n");
+		fr.k_re = 0;
+		fr.k_im = 0;
 	}
 	else
 	{
