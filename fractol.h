@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:16:37 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/15 13:07:53 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/15 21:39:45 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct Windows
 	double	k_im;
 	unsigned	int		size_x;
 	unsigned	int		size_y;
+	int	color_shift;
 }	t_Window;
 
 unsigned    int color_scale(unsigned int n);

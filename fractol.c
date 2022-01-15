@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:12:55 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/15 21:27:57 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/15 21:41:17 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	plot_julia(t_Window *fr)
 			if (is_inside == 1)
 				my_mlx_pixel_put(fr, px, py, 0x00000000);
 			else
-				my_mlx_pixel_put(fr, px, py, color_scale(n));
+				my_mlx_pixel_put(fr, px, py, color_scale(n) + fr->color_shift);
 			n = 0;
 			px++;
 		}
@@ -150,7 +150,7 @@ int	main(int argc, char **argv)
 {
 	t_Window	fr;
 
-	fr.size_x = 1024;
+	fr.color_shift = 0;
 	if (argc < 2)
 	{
 		printf("ERROR: wrong args. Call as:\n fractol <fractal set> <params>\n");
@@ -167,6 +167,8 @@ int	main(int argc, char **argv)
 			fr.k_im = atof(argv[3]);
 		else
 			fr.k_im = 0.288;
+		if (argc > 4)
+			fr.color_shift = atoi(argv[4]);
 		printf("Julia set with K = %f + %fi\n", fr.k_re, fr.k_im);
 	}
 	else if (strcmp(argv[1], "M") == 0 || strcmp(argv[1], "Mandelbrot") == 0)
@@ -175,10 +177,12 @@ int	main(int argc, char **argv)
 		printf("Mandelbrot set\n");
 		fr.k_re = 0;
 		fr.k_im = 0;
+		if (argc > 2)
+			fr.color_shift = atoi(argv[2]);
 	}
 	else
 	{
-		printf("ERROR: fractal name unknown. Call as:\n fractol <(Julia|Mandelbrot)> (<params>)\n");
+		printf("ERROR: fractal name unknown. Call as:\n fractol <(Julia|Mandelbrot)> (<params>) <color shift>\n");
 		return (1);
 	}
 	init_window(&fr);
