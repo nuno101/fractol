@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:12:55 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/15 13:12:26 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/15 16:30:09 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,16 +102,40 @@ void	plot_white(t_Window *fr)
 	}
 }
 
-int	handle_key(int keycode, void *param)
+// create new image in memory
+// replace image shown
+void	plot_image(t_Window *fr)
 {
-	void	*p;
+	printf("plot image called\n");
+
+	if (strcmp(fr->fractal_set, "Mandelbrot") == 0)
+	{
+		plot_mandelbrot(fr);
+		mlx_put_image_to_window(fr->display, fr->window, fr->image, 0, 0);
+	}
+	else if (strcmp(fr->fractal_set, "Julia") == 0)
+	{
+		plot_white(fr);
+		mlx_put_image_to_window(fr->display, fr->window, fr->image, 0, 0);
+	}
+	else
+		printf("plot image called");
+}
+
+int	handle_key(int keycode, t_Window *param)
+{
+	t_Window *p;
 
 	p = param;
 	printf("key pressed %i", keycode);
 	if (keycode == 53)
 		exit(0);
-	else
-		return (0);
+	if (keycode == 11) //b - blank
+	{
+		//param->fractal_set = NULL;
+		plot_image(param);
+	}
+	return (0);
 }
 
 int	mouse_event(int button, int x, int y, void *param)
@@ -147,22 +171,24 @@ int	main(int argc, char **argv)
 {
 	t_Window	fr;
 
+	fr.size_x = 1024;
 	if (argc < 2)
 	{
 		printf("ERROR: wrong args. Call as:\n fractol <fractal set> <params>\n");
 		return (1);
 	}
+	//TODO: fix Julia default params
 	if (strcmp(argv[1], "Julia") == 0 || strcmp(argv[1], "J") == 0)
 	{
 		fr.fractal_set = "Julia";
 		if (argc > 1)
 			fr.k_re = atof(argv[2]);
-		else
-			fr.k_re = 0.353;
+		//else
+		//	fr.k_re = 0.353;
 		if (argc > 2)
 			fr.k_im = atof(argv[3]);
-		else
-			fr.k_im = 0.288;
+		//else
+		//	fr.k_im = 0.288;
 		printf("Julia set with K = %f + %fi\n", fr.k_re, fr.k_im);
 	}
 	else if (strcmp(argv[1], "M") == 0 || strcmp(argv[1], "Mandelbrot") == 0)
@@ -175,12 +201,8 @@ int	main(int argc, char **argv)
 		printf("ERROR: fractal name unknown. Call as:\n fractol <(Julia|Mandelbrot)> (<params>)\n");
 		return (1);
 	}
-
 	init_window(&fr);
-	// create new image in memory
-	plot_mandelbrot(&fr);
-	// replace image shown
-	mlx_put_image_to_window(fr.display, fr.window, fr.image, 0, 0);
+	plot_image(&fr);
 	mlx_key_hook(fr.window, handle_key, &fr);
 	mlx_mouse_hook(fr.window, mouse_event, 0);
 	mlx_loop(fr.display);
