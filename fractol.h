@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:16:37 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/20 22:02:50 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/20 22:28:06 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,16 @@ typedef struct Windows
 	char	*fractal_set; 
 	double	k_re;
 	double	k_im;
-	unsigned	int		size_x;
-	unsigned	int		size_y;
+	unsigned int size_x;
+	unsigned int size_y;
+	unsigned int max_iter;
+	double rmin;
+	double rmax;
+	double imin;
+	double imax; 
 	int	color_shift;
 }	t_Window;
 
-unsigned    int color_scale(unsigned int n);
+unsigned	int color_scale(unsigned int n);
 
 #endif
