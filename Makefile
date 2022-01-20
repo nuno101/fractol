@@ -6,7 +6,7 @@
 #    By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/27 14:36:13 by nlouro            #+#    #+#              #
-#    Updated: 2022/01/15 11:42:16 by nlouro           ###   ########.fr        #
+#    Updated: 2022/01/20 21:54:48 by nlouro           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,21 +17,26 @@ MINILIBX_DIR = minilibx_opengl_20191021
 #MINILIBX_DIR = minilibx_macos
 MINILIBX = libmlx.a
 MINILIBX_FLAGS =  -framework OpenGL -framework AppKit 
+FT_PRINTF_DIR = ft_printf
+FT_PRINTF_OBJ = libftprintf.a
 
-C_FILES = fractol.c	color.c
+C_FILES = fractol.c	color.c ft_isdigit.c ft_atoi.c ft_strncmp.c
 
 O_FILES = $(C_FILES:%.c=%.o)
 
 all: $(FRACTOL)
 
-$(FRACTOL): $(O_FILES) $(MINILIBX)
-	gcc $(C_FLAGS) $(O_FILES) $(MINILIBX_DIR)/$(MINILIBX) $(MINILIBX_FLAGS) -o $(FRACTOL)
+$(FRACTOL): $(O_FILES) $(MINILIBX) $(FT_PRINTF_OBJ)
+	gcc $(C_FLAGS) $(O_FILES) $(MINILIBX_DIR)/$(MINILIBX) $(MINILIBX_FLAGS) $(FT_PRINTF_DIR)/$(FT_PRINTF_OBJ) -o $(FRACTOL)
 
-$(O_FILES): $(C_FILES) 
-	gcc -c $(C_FLAGS) $(C_FILES) -I $(MINILIBX_DIR)
+$(O_FILES): $(C_FILES) $(FT_PRINTF_OBJ) 
+	gcc -c $(C_FLAGS) $(C_FILES) -I $(MINILIBX_DIR) -I$(FT_PRINTF_DIR)
 
 $(MINILIBX):
 	make -C $(MINILIBX_DIR)
+
+$(FT_PRINTF_OBJ):
+	make -C $(FT_PRINTF_DIR)
 
 clean:
 	rm -f $(O_FILES)

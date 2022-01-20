@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:16:37 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/15 21:39:45 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/20 22:02:50 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 
 # include <unistd.h>
 # include <stdlib.h> //used for exit
-# include "mlx.h"
 # include "math.h"
-# include <stdio.h> //used for printf, atoi
-# include <string.h> //used for strcmp 
+# include "mlx.h"
+# include "ft_isdigit.h"
+# include "ft_atoi.h"
+# include "ft_strncmp.h"
+# include "ft_printf.h"
 
 typedef struct Windows
 {
