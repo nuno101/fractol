@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:16:37 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/21 10:39:05 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/21 10:45:29 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@ typedef struct Windows
 
 void			plot_image(t_Window *fr);
 unsigned int	color_scale(unsigned int n, int color_shift);
+void			zoom(t_Window *fr, double z);
+void			reset_zoom(t_Window *fr);
+void			shift_raxis(t_Window *fr, double s);
+void			shift_iaxis(t_Window *fr, double s);
 int				handle_keypress(int keycode, t_Window *fr);
 int				mouse_event(int button, int x, int y, void *param);
 
