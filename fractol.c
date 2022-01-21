@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:12:55 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/21 07:48:17 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/21 09:14:08 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	plot_julia(t_Window *fr)
 			if (is_inside == 1)
 				my_mlx_pixel_put(fr, px, py, 0x00000000);
 			else
-				my_mlx_pixel_put(fr, px, py, color_scale(n) + fr->color_shift);
+				my_mlx_pixel_put(fr, px, py, color_scale(n, fr->color_shift));
 			n = 0;
 			px++;
 		}

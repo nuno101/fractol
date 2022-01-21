@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 11:40:42 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/15 13:15:37 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/21 09:09:11 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ unsigned	int	rgb2int(int red, int green, int blue)
  * hard coded color scale calculated once from a list of RGB colors
  * color scale from https://stackoverflow.com/questions/16500656/which-color-gradient-is-used-to-color-mandelbrot-in-wikipedia
  */
-unsigned	int	color_scale(unsigned int n)
+unsigned	int	color_scale(unsigned int n, int color_shift)
 {
 	static	unsigned	int *scale[16];
 	int i;
@@ -56,5 +56,5 @@ unsigned	int	color_scale(unsigned int n)
 	}
 	if (n > 15)
 		n = 15;
-	return (*scale[n]);
+	return (*scale[n] + color_shift);
 }
