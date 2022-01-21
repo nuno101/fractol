@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:12:55 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/21 11:08:26 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/21 15:47:22 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	init_window(t_Window *f)
 {
 	f->size_x = 1024;
 	f->size_y = 768;
+	f->color_shift = 0;
 	f->display = mlx_init();
 	f->window = mlx_new_window(f->display, f->size_x, f->size_y, "Fract-ol");
 	f->image = mlx_new_image(f->display, f->size_x, f->size_y);

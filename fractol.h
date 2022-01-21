@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:16:37 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/21 11:12:31 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/21 15:56:14 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ typedef struct Windows
 	char			*fractal_set;
 	double			k_re;
 	double			k_im;
-	unsigned int	size_x;
-	unsigned int	size_y;
+	int				size_x;
+	int				size_y;
 	unsigned int	max_iter;
 	double			rmin;
 	double			rmax;
@@ -49,6 +49,14 @@ typedef struct Windows
 	double			imax;
 	int				color_shift;
 }	t_Window;
+
+typedef struct Coordinates
+{
+	int		px;
+	int		py;
+	double	c_re;
+	double	c_im;
+}	t_Coordinates;
 
 void			plot_julia(t_Window *fr);
 void			my_mlx_pixel_put(t_Window *fr, int x, int y, int color);

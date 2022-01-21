@@ -6,59 +6,65 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:12:55 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/21 11:11:26 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/21 16:10:07 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	plot_julia(t_Window *fr)
+void	mandelbrot(t_Window *fr, t_Coordinates *xy)
 {
-	unsigned int	px;
-	unsigned int	py;
-	unsigned int	n;
-	unsigned int	is_inside;
-	double			c_re;
 	double			z_re;
 	double			z_re2;
-	double			c_im;
 	double			z_im;
 	double			z_im2;
+	unsigned int	n;
 
-	px = 0;
-	py = 0;
 	n = 0;
-	while (py < fr->size_y)
+	z_re = xy->c_re;
+	z_im = xy->c_im;
+	while (n < fr->max_iter)
 	{
-		c_im = fr->imax - py * (fr->imax - fr->imin) / (fr->size_y - 1); // im_factor
-		while (px < fr->size_x)
+		z_re2 = z_re * z_re;
+		z_im2 = z_im * z_im;
+		if (z_re2 + z_im2 > 4)
+			break ;
+		z_im = 2 * z_re * z_im + xy->c_im;
+		z_re = z_re2 - z_im2 + xy->c_re;
+		n++;
+	}
+	if (z_re2 + z_im2 > 4)
+		my_mlx_pixel_put(fr, xy->px, xy->py, color_scale(n, fr->color_shift));
+	else
+		my_mlx_pixel_put(fr, xy->px, xy->py, 0x00000000);
+}
+
+/*
+ * walk through each pixel in the xx and yy axis
+ * calculate real/imaginary coordinates for each pixel
+ * call the fractal function
+ */
+void	plot_julia(t_Window *f)
+{
+	t_Coordinates	xy;
+
+	xy.px = 0;
+	xy.py = 0;
+	while (xy.py < f->size_y)
+	{
+		xy.c_im = f->imax - xy.py * (f->imax - f->imin) / (f->size_y - 1);
+		while (xy.px < f->size_x)
 		{
-			c_re = fr->rmin + px * (fr->rmax - fr->rmin) / (fr->size_x - 1); //re_factor
-			z_re = c_re + fr->k_re;
-			z_im = c_im + fr->k_im;
-			is_inside = 1;
-			while (n < fr->max_iter)
-			{
-				z_re2 = z_re * z_re;
-				z_im2 = z_im * z_im;
-				if (z_re2 + z_im2 > 4)
-				{
-					is_inside = 0;
-					break ;
-				}
-				z_im = 2 * z_re * z_im + c_im;
-				z_re = z_re2 - z_im2 + c_re;
-				n++;
-			}
-			if (is_inside == 1)
-				my_mlx_pixel_put(fr, px, py, 0x00000000);
+			xy.c_re = f->rmin + xy.px * (f->rmax - f->rmin) / (f->size_x - 1);
+			if (ft_strncmp(f->fractal_set, "Mandelbrot", 10) == 0)
+				mandelbrot(f, &xy);
 			else
-				my_mlx_pixel_put(fr, px, py, color_scale(n, fr->color_shift));
-			n = 0;
-			px++;
+		   		// FIXME- call julia or modify mandelbrot function
+				mandelbrot(f, &xy);
+			xy.px++;
 		}
-		px = 0;
-		py++;
+		xy.px = 0;
+		xy.py++;
 	}
 }
 
@@ -98,16 +104,16 @@ int	main(int argc, char **argv)
 {
 	t_Window	fr;
 
-	fr.color_shift = 0;
 	if (argc < 2)
 	{
-		ft_printf("ERROR: wrong args! Call as:\n");
-		ft_printf("  fractol <fractal set> <params>\n");
+		ft_printf("ERROR! Call as: fractol <fractal set> <params>\n");
 		return (1);
 	}
-	if (ft_strncmp(argv[1], "Julia", 5) == 0 || ft_strncmp(argv[1], "J", 1) == 0)
+	if (ft_strncmp(argv[1], "Julia", 5) == 0
+		|| ft_strncmp(argv[1], "J", 1) == 0)
 		init_julia(argc, argv, &fr);
-	else if (ft_strncmp(argv[1], "M", 1) == 0 || ft_strncmp(argv[1], "Mandelbrot", 10) == 0)
+	else if (ft_strncmp(argv[1], "M", 1) == 0
+		|| ft_strncmp(argv[1], "Mandelbrot", 10) == 0)
 		init_mandelbrot(argc, argv, &fr);
 	else
 	{
