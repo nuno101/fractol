@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:12:55 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/21 09:14:08 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/21 09:22:56 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ int	main(int argc, char **argv)
 	init_window(&fr);
 	plot_image(&fr);
 	mlx_key_hook(fr.window, handle_keypress, &fr);
-	mlx_mouse_hook(fr.window, mouse_event, 0);
+	mlx_mouse_hook(fr.window, mouse_event, &fr);
 	mlx_loop(fr.display);
 	return (0);
 }

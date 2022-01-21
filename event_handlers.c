@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 07:44:13 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/21 08:08:06 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/21 09:32:03 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,18 @@ void	reset_zoom(t_Window *fr)
 	fr->rmax = 1.0;
 	fr->imin = -1.2;
 	fr->imax = 1.2;
+}
+
+void	shift_raxis(t_Window *fr, double s)
+{
+	fr->rmin = s + fr->rmin;
+	fr->rmax = s + fr->rmax;
+}
+
+void	shift_iaxis(t_Window *fr, double s)
+{
+	fr->imin = s + fr->imin;
+	fr->imax = s + fr->imax;
 }
 
 /*
@@ -67,11 +79,28 @@ int handle_keypress(int keycode, t_Window *fr)
 	return (0);
 }
 
-int mouse_event(int button, int x, int y, void *param)
+int mouse_event(int button, int x, int y, void *fr)
 {
-	void	*p;
-
-	p = param;
 	ft_printf("x: %i y: %i button: %i\n", x, y, button);
+	if (button == 4)
+	{
+		zoom(fr, 0.97);
+		plot_image(fr);
+	}
+	else if (button == 5)
+	{
+		zoom(fr, 1.03);
+		plot_image(fr);
+	}
+	else if (button == 6)
+	{
+		shift_raxis(fr, -0.1);
+		plot_image(fr);
+	}
+	else if (button == 7)
+	{
+		shift_raxis(fr, 0.1);
+		plot_image(fr);
+	}
 	return (0);
 }
