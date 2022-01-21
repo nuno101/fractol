@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:16:37 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/21 10:45:29 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/21 11:12:31 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 /*
  * Minilibx docs
  * https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html
+ * bpp - bits per pixel
+ * ll - line length
  */
 typedef struct Windows
 {
@@ -32,8 +34,8 @@ typedef struct Windows
 	void			*window;
 	void			*image;
 	char			*addr;
-	int				bits_per_pixel;
-	int				line_length;
+	int				bpp;
+	int				ll;
 	int				endian;
 	char			*fractal_set;
 	double			k_re;
@@ -48,7 +50,10 @@ typedef struct Windows
 	int				color_shift;
 }	t_Window;
 
+void			plot_julia(t_Window *fr);
+void			my_mlx_pixel_put(t_Window *fr, int x, int y, int color);
 void			plot_image(t_Window *fr);
+void			init_window(t_Window *f);
 unsigned int	color_scale(unsigned int n, int color_shift);
 void			zoom(t_Window *fr, double z);
 void			reset_zoom(t_Window *fr);

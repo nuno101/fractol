@@ -6,7 +6,7 @@
 #    By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/27 14:36:13 by nlouro            #+#    #+#              #
-#    Updated: 2022/01/21 10:43:51 by nlouro           ###   ########.fr        #
+#    Updated: 2022/01/21 11:10:31 by nlouro           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ MINILIBX_FLAGS =  -framework OpenGL -framework AppKit
 FT_PRINTF_DIR = ft_printf
 FT_PRINTF_OBJ = libftprintf.a
 
-C_FILES = fractol.c	color.c event_handlers.c browse_image.c ft_isdigit.c ft_atoi.c ft_strncmp.c
+C_FILES = fractol.c	mlx_driver.c color.c event_handlers.c browse_image.c ft_isdigit.c ft_atoi.c ft_strncmp.c
 
 O_FILES = $(C_FILES:%.c=%.o)
 

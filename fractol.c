@@ -6,58 +6,45 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:12:55 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/21 09:22:56 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/21 11:11:26 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	my_mlx_pixel_put(t_Window *fr, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = fr->addr + (y * fr->line_length + x * (fr->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
-}
-
-/*
- * walk over each pixel
- * convert pixel position to (x,y) and calculate z
- * for Mandelbrot set k_re = k_im = 0
- */
 void	plot_julia(t_Window *fr)
 {
-	unsigned	int	px = 0;
-	unsigned	int	py = 0;
-	unsigned	int	n = 0;
-	double	re_factor = (fr->rmax - fr->rmin) / (fr->size_x - 1);
-	double	im_factor = (fr->imax - fr->imin) / (fr->size_y - 1);
-	unsigned	int is_inside;
-	double	c_re;
-	double	z_re;
-	double	z_re2;
-	double	c_im;
-	double	z_im;
-	double	z_im2;
+	unsigned int	px;
+	unsigned int	py;
+	unsigned int	n;
+	unsigned int	is_inside;
+	double			c_re;
+	double			z_re;
+	double			z_re2;
+	double			c_im;
+	double			z_im;
+	double			z_im2;
 
+	px = 0;
+	py = 0;
+	n = 0;
 	while (py < fr->size_y)
 	{
-		c_im = fr->imax - py * im_factor;
+		c_im = fr->imax - py * (fr->imax - fr->imin) / (fr->size_y - 1); // im_factor
 		while (px < fr->size_x)
 		{
-			c_re = fr->rmin + px * re_factor;
+			c_re = fr->rmin + px * (fr->rmax - fr->rmin) / (fr->size_x - 1); //re_factor
 			z_re = c_re + fr->k_re;
 			z_im = c_im + fr->k_im;
 			is_inside = 1;
-			while(n < fr->max_iter)
+			while (n < fr->max_iter)
 			{
 				z_re2 = z_re * z_re;
 				z_im2 = z_im * z_im;
-				//ft_printf("px: %i py: %i n: %i z_re2: %f z_im2: %f \n", px, py, n, z_re2, z_im2);
 				if (z_re2 + z_im2 > 4)
 				{
 					is_inside = 0;
-					break;
+					break ;
 				}
 				z_im = 2 * z_re * z_im + c_im;
 				z_re = z_re2 - z_im2 + c_re;
@@ -73,36 +60,6 @@ void	plot_julia(t_Window *fr)
 		px = 0;
 		py++;
 	}
-
-}
-
-/*
- * create new image in memory
- * replace image in window 
- */
-void	plot_image(t_Window *fr)
-{
-	ft_printf("Plot %s. k_re\n", fr->fractal_set);
-	plot_julia(fr);
-	mlx_put_image_to_window(fr->display, fr->window, fr->image, 0, 0);
-}
-
-/*
- * initialise minilibx and image dimensions
- */
-void	init_window(t_Window *fr)
-{
-	fr->size_x = 1024;
-	fr->size_y = 768;
-	fr->display = mlx_init();
-	fr->window = mlx_new_window(fr->display, fr->size_x, fr->size_y, "Fract-ol");
-	fr->image = mlx_new_image(fr->display, fr->size_x, fr->size_y);
-	fr->addr = mlx_get_data_addr(fr->image, &(fr->bits_per_pixel), &(fr->line_length), &(fr->endian));
-	fr->max_iter = 30;
-	fr->rmin = -2.0;
-	fr->rmax = 1.0;
-	fr->imin = -1.2;
-	fr->imax = 1.2;
 }
 
 /*
@@ -126,12 +83,12 @@ void	init_julia(int argc, char **argv, t_Window *fr)
 
 void	init_mandelbrot(int argc, char **argv, t_Window *fr)
 {
-		fr->fractal_set = "Mandelbrot";
-		fr->k_re = 0;
-		fr->k_im = 0;
-		if (argc > 2)
-			fr->color_shift = atoi(argv[2]);
-		ft_printf("Mandelbrot set\n");
+	fr->fractal_set = "Mandelbrot";
+	fr->k_re = 0;
+	fr->k_im = 0;
+	if (argc > 2)
+		fr->color_shift = atoi(argv[2]);
+	ft_printf("Mandelbrot set\n");
 }
 
 /*
@@ -144,7 +101,8 @@ int	main(int argc, char **argv)
 	fr.color_shift = 0;
 	if (argc < 2)
 	{
-		ft_printf("ERROR: wrong args. Call as:\n fractol <fractal set> <params>\n");
+		ft_printf("ERROR: wrong args! Call as:\n");
+		ft_printf("  fractol <fractal set> <params>\n");
 		return (1);
 	}
 	if (ft_strncmp(argv[1], "Julia", 5) == 0 || ft_strncmp(argv[1], "J", 1) == 0)
@@ -153,7 +111,8 @@ int	main(int argc, char **argv)
 		init_mandelbrot(argc, argv, &fr);
 	else
 	{
-		ft_printf("ERROR: fractal unknown. Call as:\n fractol <(Julia|Mandelbrot)> (<params>) <color shift>\n");
+		ft_printf("ERROR: fractal unknown! Call as:\n");
+		ft_printf("  fractol <(Julia|Mandelbrot)> (<params>) <color shift>\n");
 		return (1);
 	}
 	init_window(&fr);
