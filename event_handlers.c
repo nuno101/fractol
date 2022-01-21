@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 07:44:13 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/21 09:32:03 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/21 09:41:12 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int handle_keypress(int keycode, t_Window *fr)
 		reset_zoom(fr);
 		fr->k_re = 0;
 		fr->k_im = 0;
-		plot_image(fr);
 	}
 	else if (keycode == 38)
 	{
@@ -64,18 +63,20 @@ int handle_keypress(int keycode, t_Window *fr)
 		reset_zoom(fr);
 		fr->k_re = 0.153;
 		fr->k_im = 0.288;
-		plot_image(fr);
 	}
 	else if (keycode == 6)
-	{
 		zoom(fr, 0.8);
-		plot_image(fr);
-	}
 	else if (keycode == 7)
-	{
 		zoom(fr, 1.2);
-		plot_image(fr);
-	}
+	else if (keycode == 123)
+		shift_raxis(fr, -0.05);
+	else if (keycode == 124)
+		shift_raxis(fr, 0.05);
+	else if (keycode == 125)
+		shift_iaxis(fr, -0.05);
+	else if (keycode == 126)
+		shift_iaxis(fr, 0.05);
+	plot_image(fr);
 	return (0);
 }
 
@@ -83,24 +84,13 @@ int mouse_event(int button, int x, int y, void *fr)
 {
 	ft_printf("x: %i y: %i button: %i\n", x, y, button);
 	if (button == 4)
-	{
 		zoom(fr, 0.97);
-		plot_image(fr);
-	}
 	else if (button == 5)
-	{
 		zoom(fr, 1.03);
-		plot_image(fr);
-	}
 	else if (button == 6)
-	{
 		shift_raxis(fr, -0.1);
-		plot_image(fr);
-	}
 	else if (button == 7)
-	{
 		shift_raxis(fr, 0.1);
-		plot_image(fr);
-	}
+	plot_image(fr);
 	return (0);
 }
