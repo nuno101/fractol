@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:12:55 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/20 22:30:24 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/21 07:48:17 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,40 +88,6 @@ void	plot_image(t_Window *fr)
 }
 
 /*
- * handle esc, m and j keys
- */
-int	handle_key(int keycode, t_Window *fr)
-{
-	ft_printf("key pressed %i", keycode);
-	if (keycode == 53)
-		exit(0);
-	else if (keycode == 46) // m key
-	{
-		fr->fractal_set = "Mandelbrot";
-		fr->k_re = 0;
-		fr->k_im = 0;
-		plot_image(fr);
-	}
-	else if (keycode == 38) // m key
-	{
-		fr->fractal_set = "Julia";
-		fr->k_re = 0.153;
-		fr->k_im = 0.288;
-		plot_image(fr);
-	}
-	return (0);
-}
-
-int	mouse_event(int button, int x, int y, void *param)
-{
-	void	*p;
-
-	p = param;
-	ft_printf("x: %i y: %i button: %i\n", x, y, button);
-	return (0);
-}
-
-/*
  * initialise minilibx and image dimensions
  */
 void	init_window(t_Window *fr)
@@ -192,7 +158,7 @@ int	main(int argc, char **argv)
 	}
 	init_window(&fr);
 	plot_image(&fr);
-	mlx_key_hook(fr.window, handle_key, &fr);
+	mlx_key_hook(fr.window, handle_keypress, &fr);
 	mlx_mouse_hook(fr.window, mouse_event, 0);
 	mlx_loop(fr.display);
 	return (0);
