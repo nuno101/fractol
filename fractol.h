@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:16:37 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/21 09:09:47 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/21 10:39:05 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,33 +22,35 @@
 # include "ft_strncmp.h"
 # include "ft_printf.h"
 
+/*
+ * Minilibx docs
+ * https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html
+ */
 typedef struct Windows
 {
-	void	*display;
-	void	*window;
-	/* https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html */
-	void	*image;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-
-	char	*fractal_set; 
-	double	k_re;
-	double	k_im;
-	unsigned int size_x;
-	unsigned int size_y;
-	unsigned int max_iter;
-	double rmin;
-	double rmax;
-	double imin;
-	double imax; 
-	int	color_shift;
+	void			*display;
+	void			*window;
+	void			*image;
+	char			*addr;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+	char			*fractal_set;
+	double			k_re;
+	double			k_im;
+	unsigned int	size_x;
+	unsigned int	size_y;
+	unsigned int	max_iter;
+	double			rmin;
+	double			rmax;
+	double			imin;
+	double			imax;
+	int				color_shift;
 }	t_Window;
 
-void	plot_image(t_Window *fr);
-unsigned	int color_scale(unsigned int n, int color_shift);
-int		handle_keypress(int keycode, t_Window *fr);
-int		mouse_event(int button, int x, int y, void *param);
+void			plot_image(t_Window *fr);
+unsigned int	color_scale(unsigned int n, int color_shift);
+int				handle_keypress(int keycode, t_Window *fr);
+int				mouse_event(int button, int x, int y, void *param);
 
 #endif

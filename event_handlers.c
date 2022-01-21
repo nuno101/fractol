@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 07:44:13 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/21 09:41:12 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/21 10:38:50 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	shift_iaxis(t_Window *fr, double s)
  * m and j - mandelbrot and julia sets
  * z and x - zoom in and out
  */
-int handle_keypress(int keycode, t_Window *fr)
+int	handle_keypress(int keycode, t_Window *fr)
 {
 	ft_printf("key pressed %i", keycode);
 	if (keycode == 53)
@@ -80,7 +80,7 @@ int handle_keypress(int keycode, t_Window *fr)
 	return (0);
 }
 
-int mouse_event(int button, int x, int y, void *fr)
+int	mouse_event(int button, int x, int y, void *fr)
 {
 	ft_printf("x: %i y: %i button: %i\n", x, y, button);
 	if (button == 4)
