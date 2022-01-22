@@ -6,12 +6,11 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:55:35 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/22 11:54:13 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/22 12:04:10 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_atof.h"
-#include <stdio.h>
 
 static int	ft_isspace(int c)
 {
@@ -32,7 +31,7 @@ double	ft_atof(const char *str)
 	i = 0;
 	sign = 1;
 	nr = 0;
-	decimals = 1;
+	decimals = 0;
 	while (ft_isspace(*(str + i)))
 		i++;
 	if (*(str + i) == '-')
@@ -41,22 +40,18 @@ double	ft_atof(const char *str)
 		i++;
 	if (!ft_isdigit(*(str + i)))
 		return (0);
-	while (ft_isdigit(*(str + i)))
+	while (ft_isdigit(*(str + i)) || *(str + i) == '.')
 	{
-		nr = nr * 10 + (*(str + i) - '0');
-		//if (sign == 1 && nr > 2147483647)
-		//	return (-1);
-		//if (sign == -1 && nr > 2147483648)
-		//	return (0);
+		if (*(str + i) == '.')
+			decimals = 1;
+		else
+		{
+			nr = nr * 10 + (*(str + i) - '0');
+			decimals = decimals * 10;
+		}
 		i++;
 	}
-	if (*(str + i) == '.')
-		i++;
-	while (ft_isdigit(*(str + i)))
-	{
-		decimals = decimals * 10;
-		nr = nr * 10 + (*(str + i) - '0');
-		i++;
-	}
+	if (decimals == 0)
+		decimals = 1;
 	return ((double)(sign * nr / decimals));
 }

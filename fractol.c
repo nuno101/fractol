@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:12:55 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/21 16:10:07 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/22 12:06:20 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,11 @@ void	init_julia(int argc, char **argv, t_Window *fr)
 {
 	fr->fractal_set = "Julia";
 	if (argc > 2)
-		fr->k_re = atof(argv[2]);
+		fr->k_re = ft_atof(argv[2]);
 	else
 		fr->k_re = 0.153;
 	if (argc > 3)
-		fr->k_im = atof(argv[3]);
+		fr->k_im = ft_atof(argv[3]);
 	else
 		fr->k_im = 0.288;
 	if (argc > 4)

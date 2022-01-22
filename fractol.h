@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:16:37 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/21 15:56:14 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/22 12:03:05 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "mlx.h"
 # include "ft_isdigit.h"
 # include "ft_atoi.h"
+# include "ft_atof.h"
 # include "ft_strncmp.h"
 # include "ft_printf.h"
 
