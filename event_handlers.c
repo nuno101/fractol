@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 07:44:13 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/21 11:18:01 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/22 13:02:50 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	restart_julia(t_Window *fr)
 {
 	fr->fractal_set = "Julia";
 	reset_zoom(fr);
-	fr->k_re = 0.153;
-	fr->k_im = 0.288;
+	fr->k_re = -0.835;
+	fr->k_im = -0.2321;
 }
 
 /*

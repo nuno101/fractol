@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:12:55 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/22 12:06:20 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/22 13:04:45 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,16 @@ void	mandelbrot(t_Window *fr, t_Coordinates *xy)
 		z_im2 = z_im * z_im;
 		if (z_re2 + z_im2 > 4)
 			break ;
-		z_im = 2 * z_re * z_im + xy->c_im;
-		z_re = z_re2 - z_im2 + xy->c_re;
+		if (ft_strncmp(fr->fractal_set, "Mandelbrot", 10) == 0)
+		{
+			z_im = 2 * z_re * z_im + xy->c_im;
+			z_re = z_re2 - z_im2 + xy->c_re;
+		}
+		else
+		{
+			z_im = 2 * z_re * z_im + fr->k_im;
+			z_re = z_re2 - z_im2 + fr->k_re;
+		}
 		n++;
 	}
 	if (z_re2 + z_im2 > 4)
@@ -77,11 +85,11 @@ void	init_julia(int argc, char **argv, t_Window *fr)
 	if (argc > 2)
 		fr->k_re = ft_atof(argv[2]);
 	else
-		fr->k_re = 0.153;
+		fr->k_re = -0.835;
 	if (argc > 3)
 		fr->k_im = ft_atof(argv[3]);
 	else
-		fr->k_im = 0.288;
+		fr->k_im = -0.2321;
 	if (argc > 4)
 		fr->color_shift = atoi(argv[4]);
 	ft_printf("Julia set with K = %f + %fi\n", fr->k_re, fr->k_im);
