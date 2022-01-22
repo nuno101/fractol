@@ -6,13 +6,13 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:12:55 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/22 13:04:45 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/22 13:10:53 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	mandelbrot(t_Window *fr, t_Coordinates *xy)
+void	calculate_fractal(t_Window *fr, t_Coordinates *xy)
 {
 	double			z_re;
 	double			z_re2;
@@ -52,7 +52,7 @@ void	mandelbrot(t_Window *fr, t_Coordinates *xy)
  * calculate real/imaginary coordinates for each pixel
  * call the fractal function
  */
-void	plot_julia(t_Window *f)
+void	plot_fractal(t_Window *f)
 {
 	t_Coordinates	xy;
 
@@ -64,11 +64,7 @@ void	plot_julia(t_Window *f)
 		while (xy.px < f->size_x)
 		{
 			xy.c_re = f->rmin + xy.px * (f->rmax - f->rmin) / (f->size_x - 1);
-			if (ft_strncmp(f->fractal_set, "Mandelbrot", 10) == 0)
-				mandelbrot(f, &xy);
-			else
-		   		// FIXME- call julia or modify mandelbrot function
-				mandelbrot(f, &xy);
+			calculate_fractal(f, &xy);
 			xy.px++;
 		}
 		xy.px = 0;

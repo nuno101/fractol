@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:16:37 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/22 12:03:05 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/22 13:09:01 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct Coordinates
 	double	c_im;
 }	t_Coordinates;
 
-void			plot_julia(t_Window *fr);
+void			plot_fractal(t_Window *fr);
 void			my_mlx_pixel_put(t_Window *fr, int x, int y, int color);
 void			plot_image(t_Window *fr);
 void			init_window(t_Window *f);

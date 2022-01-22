@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:12:55 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/21 15:47:22 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/22 13:21:51 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	my_mlx_pixel_put(t_Window *fr, int x, int y, int color)
 void	plot_image(t_Window *fr)
 {
 	ft_printf("Plot %s. k_re\n", fr->fractal_set);
-	plot_julia(fr);
+	plot_fractal(fr);
 	mlx_put_image_to_window(fr->display, fr->window, fr->image, 0, 0);
 }
 
@@ -48,8 +48,5 @@ void	init_window(t_Window *f)
 	f->image = mlx_new_image(f->display, f->size_x, f->size_y);
 	f->addr = mlx_get_data_addr(f->image, &(f->bpp), &(f->ll), &(f->endian));
 	f->max_iter = 30;
-	f->rmin = -2.0;
-	f->rmax = 1.0;
-	f->imin = -1.2;
-	f->imax = 1.2;
+	reset_zoom(f);
 }

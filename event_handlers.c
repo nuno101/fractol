@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 07:44:13 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/22 13:02:50 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/22 13:15:01 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ void	restart_julia(t_Window *fr)
 }
 
 /*
- * esc - exit
+ * esc and q - exit
  * m and j - mandelbrot and julia sets
  * z and x - zoom in and out
  */
 int	handle_keypress(int keycode, t_Window *fr)
 {
 	ft_printf("key pressed %i", keycode);
-	if (keycode == 53)
+	if (keycode == 53 || keycode == 12)
 		exit(0);
 	else if (keycode == 46)
 		restart_mandelbrot(fr);
@@ -60,15 +60,16 @@ int	handle_keypress(int keycode, t_Window *fr)
 
 int	mouse_event(int button, int x, int y, void *fr)
 {
+	//FIXME - cleanup
 	ft_printf("x: %i y: %i button: %i\n", x, y, button);
 	if (button == 4)
-		zoom(fr, 0.97);
+		shift_iaxis(fr, -0.1);
 	else if (button == 5)
-		zoom(fr, 1.03);
+		shift_iaxis(fr, 0.1);
 	else if (button == 6)
-		shift_raxis(fr, -0.1);
-	else if (button == 7)
 		shift_raxis(fr, 0.1);
+	else if (button == 7)
+		shift_raxis(fr, -0.1);
 	plot_image(fr);
 	return (0);
 }

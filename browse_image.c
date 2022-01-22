@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 07:44:13 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/21 10:44:23 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/22 13:19:06 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ void	zoom(t_Window *fr, double z)
 void	reset_zoom(t_Window *fr)
 {
 	fr->rmin = -2.0;
-	fr->rmax = 1.0;
+	if (ft_strncmp(fr->fractal_set, "Mandelbrot", 10) == 0)
+		fr->rmax = 1.0;
+	else
+		fr->rmax = 2.0;
 	fr->imin = -1.2;
 	fr->imax = 1.2;
 }
