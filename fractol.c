@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:12:55 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/27 09:34:20 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/01/27 18:30:55 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	calculate_fractal(t_Window *fr, t_Coordinates *xy)
 		n++;
 	}
 	if (z_re2 + z_im2 > 4)
-		my_mlx_pixel_put(fr, xy->px, xy->py, color_scale(n, fr->color_shift));
+		my_mlx_pixel_put(fr, xy->px, xy->py, color_scale(n, fr->color_shift || 0));
 	else
 		my_mlx_pixel_put(fr, xy->px, xy->py, 0x00000000);
 }
@@ -78,15 +78,15 @@ void	plot_fractal(t_Window *f)
 void	init_julia(int argc, char **argv, t_Window *fr)
 {
 	fr->fractal_set = "Julia";
-	if (argc > 1)
+	if (argc > 2)
 		fr->k_re = ft_atof(argv[2]);
 	else
 		fr->k_re = -0.835;
-	if (argc > 2)
+	if (argc > 3)
 		fr->k_im = ft_atof(argv[3]);
 	else
 		fr->k_im = -0.2321;
-	if (argc > 3)
+	if (argc > 4)
 		fr->color_shift = ft_atoi(argv[4]);
 	ft_printf("Julia set\n");
 }
@@ -96,7 +96,7 @@ void	init_mandelbrot(int argc, char **argv, t_Window *fr)
 	fr->fractal_set = "Mandelbrot";
 	fr->k_re = 0;
 	fr->k_im = 0;
-	if (argc > 1)
+	if (argc > 2)
 		fr->color_shift = ft_atoi(argv[2]);
 	ft_printf("Mandelbrot set\n");
 }
