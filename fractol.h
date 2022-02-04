@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:16:37 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/22 13:09:01 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/02/04 11:55:01 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void			zoom(t_Window *fr, double z);
 void			reset_zoom(t_Window *fr);
 void			shift_raxis(t_Window *fr, double s);
 void			shift_iaxis(t_Window *fr, double s);
+void			zoom_from(t_Window *fr, double px, double py, double z);
 int				handle_keypress(int keycode, t_Window *fr);
 int				mouse_event(int button, int x, int y, void *param);
 

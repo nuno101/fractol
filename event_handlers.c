@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 07:44:13 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/22 13:15:01 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/02/04 11:54:48 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,10 @@ int	handle_keypress(int keycode, t_Window *fr)
 
 int	mouse_event(int button, int x, int y, void *fr)
 {
-	//FIXME - cleanup
-	ft_printf("x: %i y: %i button: %i\n", x, y, button);
 	if (button == 4)
-		shift_iaxis(fr, -0.1);
+		zoom_from(fr, x, y, 1.03);
 	else if (button == 5)
-		shift_iaxis(fr, 0.1);
-	else if (button == 6)
-		shift_raxis(fr, 0.1);
-	else if (button == 7)
-		shift_raxis(fr, -0.1);
+		zoom_from(fr, x, y, 0.97);
 	plot_image(fr);
 	return (0);
 }
