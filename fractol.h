@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:16:37 by nlouro            #+#    #+#             */
-/*   Updated: 2022/02/10 17:20:03 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/02/10 17:32:20 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct Windows
 	double			rmax;
 	double			imin;
 	double			imax;
-	unsigned int 	*scale[16];
+	unsigned int	*scale[16];
 	int				clr_shift;
 }	t_Window;
 
