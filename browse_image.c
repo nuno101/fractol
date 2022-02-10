@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 07:44:13 by nlouro            #+#    #+#             */
-/*   Updated: 2022/02/04 11:53:26 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/02/10 16:10:53 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,12 @@ void	shift_iaxis(t_Window *fr, double s)
 
 void	zoom_from(t_Window *fr, double px, double py, double z)
 {
-	double trx;
-	double try;
+	double	trx;
+	double	try;
 
-	trx = (px - fr->size_x/2) * (fr->rmax - fr->rmin)/fr->size_x;
-	try = (py - fr->size_y/2) * (fr->imax - fr->imin)/fr->size_y;
+	trx = (px - fr->size_x / 2) * (fr->rmax - fr->rmin) / fr->size_x;
+	try = (py - fr->size_y / 2) * (fr->imax - fr->imin) / fr->size_y;
 	shift_raxis(fr, 0.2 * trx);
 	shift_iaxis(fr, -0.2 * try);
 	zoom(fr, z);
 }
-

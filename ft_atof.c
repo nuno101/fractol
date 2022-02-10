@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:55:35 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/22 12:04:10 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/02/10 16:17:07 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static int	ft_isspace(int c)
 
 double	ft_atof(const char *str)
 {
-	int		i;
-	int		sign;
+	int			i;
+	int			sign;
 	long double	nr;
 	long double	decimals;
 

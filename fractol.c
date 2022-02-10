@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:12:55 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/27 18:30:55 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/02/10 16:16:34 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	calculate_fractal(t_Window *fr, t_Coordinates *xy)
 		n++;
 	}
 	if (z_re2 + z_im2 > 4)
-		my_mlx_pixel_put(fr, xy->px, xy->py, color_scale(n, fr->color_shift || 0));
+		my_mlx_pixel_put(fr, xy->px, xy->py, clr_scale(n, fr->clr_shift || 0));
 	else
 		my_mlx_pixel_put(fr, xy->px, xy->py, 0x00000000);
 }
@@ -87,7 +87,7 @@ void	init_julia(int argc, char **argv, t_Window *fr)
 	else
 		fr->k_im = -0.2321;
 	if (argc > 4)
-		fr->color_shift = ft_atoi(argv[4]);
+		fr->clr_shift = ft_atoi(argv[4]);
 	ft_printf("Julia set\n");
 }
 
@@ -97,7 +97,7 @@ void	init_mandelbrot(int argc, char **argv, t_Window *fr)
 	fr->k_re = 0;
 	fr->k_im = 0;
 	if (argc > 2)
-		fr->color_shift = ft_atoi(argv[2]);
+		fr->clr_shift = ft_atoi(argv[2]);
 	ft_printf("Mandelbrot set\n");
 }
 

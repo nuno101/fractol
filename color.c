@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 11:40:42 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/21 10:35:23 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/02/10 16:15:45 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,16 @@ unsigned	int	rgb2int(int red, int green, int blue)
  * hard coded color scale calculated once from a list of RGB colors
  * color scale from https://bit.ly/3rGNBEd
  */
-unsigned	int	color_scale(unsigned int n, int color_shift)
+unsigned	int	clr_scale(unsigned int n, int clr_shift)
 {
 	static unsigned int	*scale[16];
 	int					i;
 
 	if (scale[0] == NULL)
 	{
-		i = 0;
-		while (i < 16)
-		{
+		i = -1;
+		while (i++ < 16)
 			scale[i] = (unsigned int *) calloc(1, sizeof(int));
-			i++;
-		}
 		*scale[0] = rgb2int(66, 30, 15);
 		*scale[1] = rgb2int(25, 7, 26);
 		*scale[2] = rgb2int(9, 1, 47);
@@ -56,5 +53,5 @@ unsigned	int	color_scale(unsigned int n, int color_shift)
 	}
 	if (n > 15)
 		n = 15;
-	return (*scale[n] + color_shift);
+	return (*scale[n] + clr_shift);
 }
