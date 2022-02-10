@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:55:35 by nlouro            #+#    #+#             */
-/*   Updated: 2022/02/10 16:17:07 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/02/10 17:02:17 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,13 @@ static int	ft_isspace(int c)
 		return (0);
 }
 
-double	ft_atof(const char *str)
+double	calc_nr(const char *str, int i)
 {
-	int			i;
-	int			sign;
 	long double	nr;
 	long double	decimals;
 
-	i = 0;
-	sign = 1;
 	nr = 0;
 	decimals = 0;
-	while (ft_isspace(*(str + i)))
-		i++;
-	if (*(str + i) == '-')
-		sign = -1;
-	if (*(str + i) == '-' || *(str + i) == '+')
-		i++;
-	if (!ft_isdigit(*(str + i)))
-		return (0);
 	while (ft_isdigit(*(str + i)) || *(str + i) == '.')
 	{
 		if (*(str + i) == '.')
@@ -53,5 +41,23 @@ double	ft_atof(const char *str)
 	}
 	if (decimals == 0)
 		decimals = 1;
-	return ((double)(sign * nr / decimals));
+	return (nr / decimals);
+}
+
+double	ft_atof(const char *str)
+{
+	int			i;
+	int			sign;
+
+	i = 0;
+	sign = 1;
+	while (ft_isspace(*(str + i)))
+		i++;
+	if (*(str + i) == '-')
+		sign = -1;
+	if (*(str + i) == '-' || *(str + i) == '+')
+		i++;
+	if (!ft_isdigit(*(str + i)))
+		return (0);
+	return ((double)(sign * calc_nr(str, i)));
 }

@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:12:55 by nlouro            #+#    #+#             */
-/*   Updated: 2022/01/27 09:34:51 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/02/10 17:13:10 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,5 @@ void	init_window(t_Window *f)
 	f->addr = mlx_get_data_addr(f->image, &(f->bpp), &(f->ll), &(f->endian));
 	f->max_iter = 30;
 	reset_zoom(f);
+	set_clr_scale(f);
 }

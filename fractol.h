@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:16:37 by nlouro            #+#    #+#             */
-/*   Updated: 2022/02/10 16:16:12 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/02/10 17:20:03 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct Windows
 	double			rmax;
 	double			imin;
 	double			imax;
+	unsigned int 	*scale[16];
 	int				clr_shift;
 }	t_Window;
 
@@ -63,7 +64,8 @@ void			plot_fractal(t_Window *fr);
 void			my_mlx_pixel_put(t_Window *fr, int x, int y, int color);
 void			plot_image(t_Window *fr);
 void			init_window(t_Window *f);
-unsigned int	clr_scale(unsigned int n, int clr_shift);
+void			set_clr_scale(t_Window *fr);
+unsigned int	clr_scale(t_Window *fr, unsigned int n);
 void			zoom(t_Window *fr, double z);
 void			reset_zoom(t_Window *fr);
 void			shift_raxis(t_Window *fr, double s);

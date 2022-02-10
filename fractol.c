@@ -6,7 +6,7 @@
 /*   By: nlouro <nlouro@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:12:55 by nlouro            #+#    #+#             */
-/*   Updated: 2022/02/10 16:16:34 by nlouro           ###   ########.fr       */
+/*   Updated: 2022/02/10 17:29:08 by nlouro           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	calculate_fractal(t_Window *fr, t_Coordinates *xy)
 		n++;
 	}
 	if (z_re2 + z_im2 > 4)
-		my_mlx_pixel_put(fr, xy->px, xy->py, clr_scale(n, fr->clr_shift || 0));
+		my_mlx_pixel_put(fr, xy->px, xy->py, clr_scale(fr, n));
 	else
 		my_mlx_pixel_put(fr, xy->px, xy->py, 0x00000000);
 }
